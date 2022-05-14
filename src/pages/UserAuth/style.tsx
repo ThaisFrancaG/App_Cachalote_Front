@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface Props {
-  submitError: boolean;
+  submitError?: boolean;
+  submitSuccess?: boolean;
 }
 export const MainAuth = styled.main(
   ({ theme }) => `
@@ -71,16 +73,54 @@ export const Button = styled.button(
   ({ theme }) => `
 width:200px;
 height:50px;
+display:flex;
 border-radius:20px;
 border:none;
 font-size:30px;
+justify-content:center;
+align-items:center;
 background-color:${theme.accent};
 letter-spacing: 3px;
 font-family:"Fredoka One";
 color:${theme.textSecondary};
+
+::hover{
+  pointer:click;}
 `
 );
 
 export const Alert = styled.div<Props>`
   display: ${(props) => (props.submitError ? "flex" : "none")};
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border: 2px solid #d82841;
+  border-radius: 5px;
+  padding: 2px 5px 2px 5px;
+  box-sizing: border-box;
+  font-family: "Nunito";
+  letter-spacing: 1px;
+  span {
+    margin-left: 10px;
+  }
 `;
+
+export const Success = styled.div<Props>`
+  display: ${(props) => (props.submitSuccess ? "flex" : "none")};
+`;
+
+export const Navigation = styled(Link)(
+  ({ theme }) => `
+color:${theme.textTitle};
+font-size:20px;
+letter-spacing: 3px;
+font-family:"Fredoka One";
+text-decoration:none;
+margin-top: 30px;
+
+::hover{
+  pointer:click;
+  text-decoration-line: underline;
+}
+`
+);
