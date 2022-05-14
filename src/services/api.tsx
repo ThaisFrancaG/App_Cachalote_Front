@@ -20,6 +20,5 @@ function getConfig(token: string) {
 }
 
 export async function signUp(data: UserData) {
-  console.log(data);
   await baseAPI.post(`/sign-up`, data);
 }

@@ -1,26 +1,39 @@
 /* eslint-disable react/jsx-filename-extension */
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import themes from "../style/themes";
 import styled from "styled-components";
 import { GiWhaleTail } from "react-icons/gi";
-function Footer() {
-  const [theme, setTheme] = useState(themes.firstTheme);
-  console.log(theme);
-  // eslint-disable-next-line react/jsx-filename-extension
+import { useTheme } from "../context/theme";
 
+function Footer() {
+  // eslint-disable-next-line react/jsx-filename-extension
+  const { theme, setTheme } = useTheme();
+
+  function changeTheme(newTheme: string) {
+    const current = localStorage.getItem("theme");
+    if (current !== newTheme) {
+      if (theme == themes.firstTheme) {
+        localStorage.setItem("theme", "secondTheme");
+        setTheme(themes.secondTheme);
+      } else if (theme == themes.secondTheme) {
+        localStorage.setItem("theme", "firstTheme");
+        setTheme(themes.firstTheme);
+      }
+    }
+  }
   return (
     <Main>
       <span>Se quiser, clique para mudar as cores!</span>
       <Icon>
         <GiWhaleTail
           color="#115986"
-          onClick={() => setTheme(themes.firstTheme)}
+          onClick={() => changeTheme("secondTheme")}
         />
       </Icon>
       <Icon>
         <GiWhaleTail
           color="#f1faeeff"
-          onClick={() => setTheme(themes.secondTheme)}
+          onClick={() => changeTheme("firstTheme")}
         />
       </Icon>
     </Main>
