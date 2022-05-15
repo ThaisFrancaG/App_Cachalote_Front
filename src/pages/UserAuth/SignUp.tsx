@@ -51,8 +51,8 @@ export default function SignUp() {
       setSubmitSuccess(true);
       navigate("/");
     } catch (error: Error | AxiosError | any) {
-      console.log(error);
       console.log(error.message);
+      setAlertMessage(error.response.data);
       setSubmitError(true);
       setSubmitSuccess(false);
       setLoading(false);
@@ -79,7 +79,7 @@ export default function SignUp() {
           <input
             name="email"
             placeholder="E-mail"
-            type="e-mail"
+            type="email"
             value={signInfo.email}
             onChange={(e) => handleChange(e)}
             required
@@ -88,7 +88,7 @@ export default function SignUp() {
           <input
             name="checkEmail"
             placeholder="Confirme seu E-mail"
-            type="e-mail"
+            type="email"
             value={signInfo.checkEmail}
             onChange={(e) => handleChange(e)}
             required
