@@ -18,7 +18,15 @@ interface ContextState {
 const ContextTheme = createContext<ContextState>({} as ContextState);
 
 export default function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState(themes.firstTheme);
+  const { firstTheme, secondTheme } = themes;
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") === null
+      ? firstTheme
+      : localStorage.getItem("theme") === "firstTheme"
+      ? firstTheme
+      : secondTheme
+  );
+
   return (
     <ContextTheme.Provider value={{ theme, setTheme }}>
       {children}

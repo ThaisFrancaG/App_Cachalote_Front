@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <ThemeProvider>
         <Routes>
-          <Route path="/" element={<SignUp />} />
+          <Route path="/sign-up" element={<SignUp />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
