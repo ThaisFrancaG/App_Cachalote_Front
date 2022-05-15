@@ -31,6 +31,20 @@ border-radius:50%;
 `
 );
 
+export const BannerLogin = styled.aside(
+  ({ theme }) => `
+position:fixed;
+right:-20vw;
+min-width:50vw;
+height: 200vh;
+background-color: ${theme.secondary};
+// border-top-right-radius:50%;
+// border-bottom-right-radius:70%;
+border-radius:50%;
+
+`
+);
+
 export const Title = styled.span(
   ({ theme }) => `
   color: ${theme.textTitle};
@@ -49,6 +63,34 @@ flex-direction:column;
 align-items: center;
 width:70vw;
 padding-left:30vw;
+row-gap:20px;
+color:${theme.textPrimary};
+
+input{
+  min-height:60px;
+  width:85%;
+  background-color:${theme.input};
+  border:none;
+  border-radius:20px;
+  padding: 0 10px;
+  color:${theme.textPrimary};
+  font-family:"Nunito";
+  letter-spacing: 1px;
+  font-size:40px;
+
+
+}
+`
+);
+
+export const FormLogin = styled.form(
+  ({ theme }) => `
+display:flex;
+flex-direction:column;
+align-items: center;
+width:70vw;
+padding-right:30vw;
+padding-left:20px;
 row-gap:20px;
 color:${theme.textPrimary};
 

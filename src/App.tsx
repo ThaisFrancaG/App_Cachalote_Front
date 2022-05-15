@@ -5,13 +5,17 @@ import "./App.css";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import SignUp from "./pages/UserAuth/SignUp";
 import ThemeProvider from "./context/theme";
+import SignIn from "./pages/UserAuth/SignIn";
+import MainPage from "./pages/Main/MainPage";
 
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
         <Routes>
+          <Route path="/" element={<MainPage />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>

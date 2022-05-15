@@ -11,7 +11,8 @@ import { useTheme } from "../../context/theme";
 import CheckForm from "./CheckFormUtil";
 import { AxiosError } from "axios";
 import { WaveSpinner } from "react-spinners-kit";
-export default function SignUp() {
+
+export default function SignIn() {
   const { theme } = useTheme();
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(false);
@@ -20,9 +21,7 @@ export default function SignUp() {
   const [submitSuccess, setSubmitSuccess] = React.useState(false);
   const [submitError, setSubmitError] = React.useState(false);
   const [signInfo, setSignInfo] = useState({
-    name: "",
     email: "",
-    checkEmail: "",
     password: "",
   });
 
@@ -47,9 +46,9 @@ export default function SignUp() {
     }
 
     try {
-      await api.signUp(signInfo);
+      await api.signIn(signInfo);
       setSubmitSuccess(true);
-      navigate("/sign-in");
+      navigate("/");
     } catch (error: Error | AxiosError | any) {
       console.log(error.message);
       setAlertMessage(error.response.data);
@@ -61,20 +60,10 @@ export default function SignUp() {
   return (
     <ThemeProvider theme={theme}>
       <style.MainAuth>
-        <style.Banner>oi</style.Banner>
-
         <style.Success>{successMessage}</style.Success>
 
-        <style.Form>
-          <style.Title> CADASTRE-SE</style.Title>
-          <input
-            name="name"
-            placeholder="Nome Completo"
-            type="text"
-            value={signInfo.name}
-            onChange={(e) => handleChange(e)}
-            required
-          />
+        <style.FormLogin>
+          <style.Title> FAÇA LOGIN!</style.Title>
 
           <input
             name="email"
@@ -85,14 +74,6 @@ export default function SignUp() {
             required
           />
 
-          <input
-            name="checkEmail"
-            placeholder="Confirme seu E-mail"
-            type="email"
-            value={signInfo.checkEmail}
-            onChange={(e) => handleChange(e)}
-            required
-          />
           <input
             name="password"
             placeholder="Senha"
@@ -120,10 +101,11 @@ export default function SignUp() {
               <span>Enviar</span>
             )}
           </style.Button>
-          <style.Navigation to="/">
-            Já tem uma conta? Faça login!
+          <style.Navigation to="/sign-up">
+            Ainda não tem conta? Faça cadastro!
           </style.Navigation>
-        </style.Form>
+        </style.FormLogin>
+        <style.BannerLogin>oi</style.BannerLogin>
 
         <Footer />
       </style.MainAuth>
