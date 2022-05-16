@@ -9,8 +9,8 @@ import Footer from "../../components/Footer";
 import { useTheme } from "../../context/theme";
 import { AxiosError } from "axios";
 import { WaveSpinner } from "react-spinners-kit";
+import useAlert from "../../context/alert";
 
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function MainPage() {
@@ -21,23 +21,19 @@ export default function MainPage() {
   const [successMessage, setSuccessMessage] = React.useState("");
   const [submitSuccess, setSubmitSuccess] = React.useState(false);
   const [submitError, setSubmitError] = React.useState(false);
+  const { setMessage } = useAlert();
 
-  const notify = () => toast("Wow so easy !");
   useEffect(() => {
     const session = localStorage.getItem("auth");
     if (!session) {
-      {
-        notify;
-      }
-
-      alert("redirecionando");
+      setMessage({ type: "error", text: "Por favor, faça login!" });
       navigate("/sign-in");
     }
   }, []);
   return (
     <>
       CACHALOTE
-      <ToastContainer />
+      <Footer />
     </>
   );
 }

@@ -7,16 +7,21 @@ import SignUp from "./pages/UserAuth/SignUp";
 import ThemeProvider from "./context/theme";
 import SignIn from "./pages/UserAuth/SignIn";
 import MainPage from "./pages/Main/MainPage";
+import { AlertProvider } from "./context/alert";
+import Alert from "./components/AlertMessage";
 
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/sign-in" element={<SignIn />} />
-        </Routes>
+        <AlertProvider>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/sign-in" element={<SignIn />} />
+          </Routes>
+          <Alert />
+        </AlertProvider>
       </ThemeProvider>
     </BrowserRouter>
   );

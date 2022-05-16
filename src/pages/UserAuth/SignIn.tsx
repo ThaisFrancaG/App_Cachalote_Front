@@ -50,8 +50,13 @@ export default function SignIn() {
       setSubmitSuccess(true);
       navigate("/");
     } catch (error: Error | AxiosError | any) {
-      console.log(error.message);
-      setAlertMessage(error.response.data);
+      if (error.message === "Netword Error") {
+        setAlertMessage(
+          "Estamos tendo problemas com nosso servidor,\n tente novamente mais tarde ou recarregue a página"
+        );
+      } else {
+        setAlertMessage(error.response.data);
+      }
       setSubmitError(true);
       setSubmitSuccess(false);
       setLoading(false);
