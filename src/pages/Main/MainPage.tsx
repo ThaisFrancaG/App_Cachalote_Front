@@ -24,16 +24,16 @@ export default function MainPage() {
   const { setMessage } = useAlert();
 
   useEffect(() => {
-    const session = localStorage.getItem("auth");
+    const session = localStorage.getItem("cachalote-token");
     if (!session) {
       setMessage({ type: "error", text: "Por favor, faça login!" });
       navigate("/sign-in");
     }
   }, []);
   return (
-    <>
+    <ThemeProvider theme={theme}>
       CACHALOTE
       <Footer />
-    </>
+    </ThemeProvider>
   );
 }

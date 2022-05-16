@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 const firstTheme = {
   accent: "#D82841",
   primary: "#115986",

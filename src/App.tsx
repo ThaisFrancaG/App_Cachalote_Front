@@ -9,19 +9,22 @@ import SignIn from "./pages/UserAuth/SignIn";
 import MainPage from "./pages/Main/MainPage";
 import { AlertProvider } from "./context/alert";
 import Alert from "./components/AlertMessage";
+import { AuthProvider } from "./context/auth";
 
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <AlertProvider>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/sign-in" element={<SignIn />} />
-          </Routes>
-          <Alert />
-        </AlertProvider>
+        <AuthProvider>
+          <AlertProvider>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/sign-in" element={<SignIn />} />
+            </Routes>
+            <Alert />
+          </AlertProvider>
+        </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>
   );

@@ -24,6 +24,7 @@ export async function signUp(data: UserData) {
 }
 
 export async function signIn(data: UserData) {
-  const token = await baseAPI.post(`/sign-in`, data);
-  console.log(token);
+  const response = await baseAPI.post(`/sign-in`, data);
+  const token = response.data;
+  return token;
 }
