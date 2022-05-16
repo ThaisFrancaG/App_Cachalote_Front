@@ -22,3 +22,9 @@ function getConfig(token: string) {
 export async function signUp(data: UserData) {
   await baseAPI.post(`/sign-up`, data);
 }
+
+export async function signIn(data: UserData) {
+  const response = await baseAPI.post(`/sign-in`, data);
+  const token = response.data;
+  return token;
+}

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { ThemeProvider } from "styled-components";
 import * as style from "./style";
@@ -11,18 +11,18 @@ import { useTheme } from "../../context/theme";
 import CheckForm from "./CheckFormUtil";
 import { AxiosError } from "axios";
 import { WaveSpinner } from "react-spinners-kit";
-export default function SignUp() {
+import useAuth from "../../context/auth";
+
+export default function SignIn() {
   const { theme } = useTheme();
+  const { signIn } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState("");
-  const [successMessage, setSuccessMessage] = React.useState("");
-  const [submitSuccess, setSubmitSuccess] = React.useState(false);
+
   const [submitError, setSubmitError] = React.useState(false);
   const [signInfo, setSignInfo] = useState({
-    name: "",
     email: "",
-    checkEmail: "",
     password: "",
   });
 
@@ -47,34 +47,27 @@ export default function SignUp() {
     }
 
     try {
-      await api.signUp(signInfo);
-      setSubmitSuccess(true);
-      navigate("/sign-in");
+      const token = await api.signIn(signInfo);
+
+      signIn(token);
+      navigate("/");
     } catch (error: Error | AxiosError | any) {
-      console.log(error.message);
-      setAlertMessage(error.response.data);
+      if (error.message === "Netword Error") {
+        setAlertMessage(
+          "Estamos tendo problemas com nosso servidor,\n tente novamente mais tarde ou recarregue a página"
+        );
+      } else {
+        setAlertMessage(error.response.data);
+      }
       setSubmitError(true);
-      setSubmitSuccess(false);
       setLoading(false);
     }
   }
   return (
     <ThemeProvider theme={theme}>
       <style.MainAuth>
-        <style.Banner>oi</style.Banner>
-
-        <style.Success>{successMessage}</style.Success>
-
-        <style.Form>
-          <style.Title> CADASTRE-SE</style.Title>
-          <input
-            name="name"
-            placeholder="Nome Completo"
-            type="text"
-            value={signInfo.name}
-            onChange={(e) => handleChange(e)}
-            required
-          />
+        <style.FormLogin>
+          <style.Title> FAÇA LOGIN!</style.Title>
 
           <input
             name="email"
@@ -85,14 +78,6 @@ export default function SignUp() {
             required
           />
 
-          <input
-            name="checkEmail"
-            placeholder="Confirme seu E-mail"
-            type="email"
-            value={signInfo.checkEmail}
-            onChange={(e) => handleChange(e)}
-            required
-          />
           <input
             name="password"
             placeholder="Senha"
@@ -120,10 +105,11 @@ export default function SignUp() {
               <span>Enviar</span>
             )}
           </style.Button>
-          <style.Navigation to="/">
-            Já tem uma conta? Faça login!
+          <style.Navigation to="/sign-up">
+            Ainda não tem conta? Faça cadastro!
           </style.Navigation>
-        </style.Form>
+        </style.FormLogin>
+        <style.BannerLogin>oi</style.BannerLogin>
 
         <Footer />
       </style.MainAuth>

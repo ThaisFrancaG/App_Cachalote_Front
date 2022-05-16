@@ -5,14 +5,26 @@ import "./App.css";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import SignUp from "./pages/UserAuth/SignUp";
 import ThemeProvider from "./context/theme";
+import SignIn from "./pages/UserAuth/SignIn";
+import MainPage from "./pages/Main/MainPage";
+import { AlertProvider } from "./context/alert";
+import Alert from "./components/AlertMessage";
+import { AuthProvider } from "./context/auth";
 
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <Routes>
-          <Route path="/sign-up" element={<SignUp />} />
-        </Routes>
+        <AuthProvider>
+          <AlertProvider>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/sign-in" element={<SignIn />} />
+            </Routes>
+            <Alert />
+          </AlertProvider>
+        </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>
   );
