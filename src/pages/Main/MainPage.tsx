@@ -12,6 +12,7 @@ import { WaveSpinner } from "react-spinners-kit";
 import useAlert from "../../context/alert";
 
 import "react-toastify/dist/ReactToastify.css";
+import UserPreferencesForm from "../../components/userPreferencesForms/UserPreferencesForm";
 
 export default function MainPage() {
   const { theme } = useTheme();
@@ -21,6 +22,7 @@ export default function MainPage() {
   const [successMessage, setSuccessMessage] = React.useState("");
   const [submitSuccess, setSubmitSuccess] = React.useState(false);
   const [submitError, setSubmitError] = React.useState(false);
+  const [userForm, setUserForm] = useState(false);
   const { setMessage } = useAlert();
 
   useEffect(() => {
@@ -29,10 +31,15 @@ export default function MainPage() {
       setMessage({ type: "error", text: "Por favor, faça login!" });
       navigate("/sign-in");
     }
+    const userPreferences = localStorage.getItem("cachalote-user");
+    if (!userPreferences || userPreferences === "false") {
+      setUserForm(true);
+    }
   }, []);
   return (
     <ThemeProvider theme={theme}>
-      CACHALOTE
+      {userForm ? <UserPreferencesForm display /> : <></>}
+      CACHALOTE CACHALOTE
       <Footer />
     </ThemeProvider>
   );
