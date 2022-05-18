@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { ThemeProvider } from "styled-components";
-
 import * as api from "../../services/api";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { useTheme } from "../../context/theme";
@@ -16,15 +15,20 @@ import useAuth from "../../context/auth";
 import * as style from "./style";
 import Opening from "./preferencesOptions/opening";
 import ReadingOptions from "./preferencesOptions/readingOptions";
-export default function UserPreferencesForm(props: any) {
+export default function UserPreferencesForm() {
   const { theme } = useTheme();
-  const { signIn } = useAuth();
-  const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
-
+  const [userPreferences, setPreferences] = useState({
+    nickname: "",
+    books: false,
+    mangas: false,
+    novels: false,
+    comics: false,
+  });
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
+  console.log(userPreferences);
   return (
     <ThemeProvider theme={theme}>
       <style.FormBack>
@@ -32,7 +36,10 @@ export default function UserPreferencesForm(props: any) {
           {page === 1 ? (
             <Opening />
           ) : page === 2 ? (
-            <ReadingOptions />
+            <ReadingOptions
+              userPreferences={userPreferences}
+              setPreferences={setPreferences}
+            />
           ) : page === 3 ? (
             <>Pagina3</>
           ) : page === 4 ? (

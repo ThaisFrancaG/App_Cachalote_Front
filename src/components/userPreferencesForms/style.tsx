@@ -11,7 +11,7 @@ position:relative;
 left:50%;
 transform: translate(-50%, 20%);
 width: 80vw;
-height: 60vh;
+height: 70vh;
 background-color:${theme.secondary};
 
 border-bottom-left-radius:10px;
@@ -21,9 +21,6 @@ border-top-right-radius:50px;
 box-sizing:border-box;
 
 padding:10px;
-
-// overflow:hidden;
-
 
 z-index:1000;
 `
@@ -53,45 +50,62 @@ export const FormBack = styled.div`
   background-color: rgba(229, 229, 186, 0.842);
 `;
 
-export const ReadingsContainer = styled.div(
+export const ReadingsContainer = styled.div<any>(
   ({ theme }) => `
 display:flex;
+
 justify-content:center;
 align-items:center;
 column-gap:10px;
-width:100%;
+width:80vw;
 height:auto;
+padding-bottom:30px;
 `
 );
 
-export const ReadingsSelector = styled.div(
+export const PageDescriptor = styled.div(
   ({ theme }) => `
-
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-color:${theme.primary};
-background-color: ${(props: { selected: any }) =>
-    props.selected ? "blue" : "pink"}
-width:20%;
-height:auto;
-:hover{
-    cursor:pointer;
-    scale:2;
-		
-}
-figure{
-width:100%;
-border: 2px solid ${theme.primary};
-border-radius:10%;
-overflow:hidden;
-
-img{
-    height:100%;
-    width:100%;
-    background-color:${theme.back}
-}
-}
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  
 `
 );
+export const ReadingsSelector = styled.div<any>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: ${(props) => props.theme.primary};
+
+  width: 20%;
+  height: auto;
+  :hover {
+    cursor: pointer;
+    scale: 1.2;
+  }
+  .title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 900;
+  }
+  span {
+    display: flex;
+    text-align: center;
+  }
+  figure {
+    width: 15vw;
+    height: 30vh;
+
+    border: ${(props) => (props.selected ? "10px" : "5px")} solid
+      ${(props) => props.theme.primary};
+    border-radius: ${(props) => (props.selected ? "50%" : "10%")};
+    overflow: hidden;
+    img {
+      height: 100%;
+      width: 100%;
+      background-color: ${(props) => props.theme.back};
+    }
+  }
+`;

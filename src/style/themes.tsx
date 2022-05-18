@@ -13,7 +13,6 @@ const secondTheme = {
   accent: "#D82841",
   primary: "#f1faeeff",
   back: "#1d3557ff",
-
   secondary: "#115986",
   input: "#daf0f7",
   textPrimary: "#1d3557ff",

@@ -38,7 +38,7 @@ export default function MainPage() {
   }, []);
   return (
     <ThemeProvider theme={theme}>
-      {userForm ? <UserPreferencesForm display /> : <></>}
+      {userForm ? <UserPreferencesForm /> : <></>}
       CACHALOTE CACHALOTE
       <Footer />
     </ThemeProvider>
