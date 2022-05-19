@@ -23,8 +23,7 @@ export default function ReadingOptions(props: any) {
       setPreferences({ ...userPreferences, [selected]: true });
     }
   }
-  console.log(userPreferences);
-  const options = "../../../../public/assets";
+
   return (
     <ThemeProvider theme={theme}>
       <style.ReadingsContainer>

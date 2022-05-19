@@ -26,6 +26,9 @@ z-index:1000;
 `
 );
 
+export const Form = styled.form`
+  background-color: blue;
+`;
 export const FormTitle = styled.span(
   ({ theme }) => `
     color:${theme.textTitle}
@@ -65,6 +68,7 @@ padding-bottom:30px;
 
 export const PageDescriptor = styled.div(
   ({ theme }) => `
+    color: ${theme.primary};
   display:flex;
   flex-direction:column;
   justify-content:center;

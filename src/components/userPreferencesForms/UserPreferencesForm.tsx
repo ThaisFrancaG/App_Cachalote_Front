@@ -15,6 +15,7 @@ import useAuth from "../../context/auth";
 import * as style from "./style";
 import Opening from "./preferencesOptions/opening";
 import ReadingOptions from "./preferencesOptions/readingOptions";
+import ProfileImage from "./preferencesOptions/avatarProfile";
 export default function UserPreferencesForm() {
   const { theme } = useTheme();
   const [page, setPage] = React.useState(1);
@@ -41,7 +42,7 @@ export default function UserPreferencesForm() {
               setPreferences={setPreferences}
             />
           ) : page === 3 ? (
-            <>Pagina3</>
+            <ProfileImage />
           ) : page === 4 ? (
             <>Pagina4</>
           ) : (
