@@ -16,10 +16,13 @@ align-items: center;
 `
 );
 
-export const Banner = styled.aside(
+export const Banner = styled.div(
   ({ theme }) => `
 position:fixed;
-
+display:flex;
+align-items:center;
+justify-content:end;
+padding-right:10px;
 left:-20vw;
 min-width:50vw;
 height: 200vh;
@@ -28,6 +31,10 @@ background-color: ${theme.secondary};
 // border-bottom-right-radius:70%;
 border-radius:50%;
 
+img{
+  heigth:50%;
+  width:50%;
+}
 `
 );
 
