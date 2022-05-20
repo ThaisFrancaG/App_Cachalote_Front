@@ -38,7 +38,10 @@ export default function UserPreferencesForm({ userInfo }: any) {
       <style.FormBack>
         <style.FormContainer>
           {page === 1 ? (
-            <Opening />
+            <Opening
+              userPreferences={userPreferences}
+              setPreferences={setPreferences}
+            />
           ) : page === 2 ? (
             <ReadingOptions
               userPreferences={userPreferences}

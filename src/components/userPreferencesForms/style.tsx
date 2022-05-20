@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const HorizontalDivisor = styled.div(({ theme }) => ``);
+
 export const FormContainer = styled.main(
   ({ theme }) => `
   display:flex;
@@ -117,6 +118,58 @@ export const FormBack = styled.div`
   background-color: rgba(229, 229, 186, 0.842);
 `;
 
+export const FormNickName = styled.form(
+  ({ theme }) => `
+display:flex;
+flex-direction:column;
+align-items: center;
+width:80vw;
+row-gap:10px;
+color:${theme.textPrimary};
+margin-top:20px;
+
+
+span{color: ${theme.primary};
+  font-family:"Fredoka One";
+  font-size:20px;
+  letter-spacing: 5px;
+  margin-bottom:3px;}
+
+input{
+  min-height:5vh;
+  width:90%;
+  background-color:${theme.input};
+  border:none;
+  border-radius:20px;
+  padding: 0 10px;
+  color:${theme.textPrimary};
+  font-family:"Nunito";
+  letter-spacing: 1px;
+  font-size:20px;
+  text-align:center;
+}
+`
+);
+export const Button = styled.button`
+  width: 30vw;
+  height: 5vh;
+  display: flex;
+  border-radius: 20px;
+  border: none;
+  font-size: 15px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.theme.accent};
+  letter-spacing: 3px;
+  font-family: "Fredoka One";
+  color: ${(props) => props.theme.textSecondary};
+
+  :hover {
+    cursor: pointer;
+    background-color: ${(props) => props.theme.accentTransparent};
+  }
+`;
+
 export const ReadingsContainer = styled.div<any>(
   ({ theme }) => `
 display:flex;
@@ -126,6 +179,7 @@ column-gap:20px;
 width:80vw;
 height:60%;
 padding-bottom:30px;
+background-color:purple;
 `
 );
 
