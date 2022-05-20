@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+export const HorizontalDivisor = styled.div(({ theme }) => ``);
 export const FormContainer = styled.main(
   ({ theme }) => `
   display:flex;
@@ -10,8 +11,8 @@ export const FormContainer = styled.main(
 position:relative; 
 left:50%;
 transform: translate(-50%, 20%);
-width: 80vw;
-height: 70vh;
+width: 90vw;
+min-height: 80vh;
 background-color:${theme.secondary};
 
 border-bottom-left-radius:10px;
@@ -26,9 +27,72 @@ z-index:1000;
 `
 );
 
-export const Form = styled.form`
-  background-color: blue;
+export const AvatarSelector = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
+  min-height: 10vh;
+
+  align-items: center;
+  justify-content: center;
+  :hover {
+    cursor: pointer;
+  }
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+    min-height: 8vh;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: ${(props) => props.theme.input};
+    :hover {
+      background-color: ${(props) => props.theme.inputTransparent};
+    }
+  }
 `;
+
+export const AvatarForm = styled.form<any>`
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
+  height: auto;
+  justify-content: center;
+
+  input {
+    width: 80%;
+    height: 8vh;
+    background-color: ${(props) => props.theme.input};
+  }
+
+  button {
+    margin-left: 70%;
+    width: 20vw;
+    height: 8vh;
+    border: none;
+    border-radius: 5%;
+    :hover {
+      cursor: pointer;
+      background-color: ${(props) =>
+        props.status
+          ? props.theme.accentTransparent
+          : props.theme.inputTransparent};
+    }
+    background-color: ${(props) =>
+      props.status ? props.theme.accent : props.theme.input};
+  }
+
+  img {
+    border: 2px solid ${(props) => props.theme.primary};
+    display: flex;
+    border-radius: 50%;
+    background-color: ${(props) => props.theme.back};
+    width: 100px;
+    height: 100px;
+  }
+`;
+
 export const FormTitle = styled.span(
   ({ theme }) => `
     color:${theme.textTitle}
@@ -40,8 +104,8 @@ export const FormProgress = styled.nav(
 position:absolute;
 bottom:0;
 display:flex;
-color:${theme.primary}
-
+color:${theme.primary};
+background-color:red;
 `
 );
 
@@ -56,12 +120,11 @@ export const FormBack = styled.div`
 export const ReadingsContainer = styled.div<any>(
   ({ theme }) => `
 display:flex;
-
 justify-content:center;
-align-items:center;
-column-gap:10px;
+align-items:start;
+column-gap:20px;
 width:80vw;
-height:auto;
+height:60%;
 padding-bottom:30px;
 `
 );
@@ -73,34 +136,36 @@ export const PageDescriptor = styled.div(
   flex-direction:column;
   justify-content:center;
   align-items:center;
+
+ 
   
 `
 );
 export const ReadingsSelector = styled.div<any>`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   color: ${(props) => props.theme.primary};
-
   width: 20%;
-  height: auto;
+  max-height: 50%;
   :hover {
     cursor: pointer;
-    scale: 1.2;
+    scale: 1.4;
   }
   .title {
     text-align: center;
-    font-size: 30px;
+    font-size: 110%;
     font-weight: 900;
   }
   span {
     display: flex;
     text-align: center;
+    font-size: 70%;
   }
   figure {
     width: 15vw;
-    height: 30vh;
+    height: 15vh;
 
     border: ${(props) => (props.selected ? "10px" : "5px")} solid
       ${(props) => props.theme.primary};

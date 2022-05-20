@@ -14,9 +14,8 @@ export default function ReadingOptions(props: any) {
   const { theme } = useTheme();
   const { userPreferences, setPreferences } = props;
   function handleSelection(selected: string) {
-    console.log(selected);
     const value = userPreferences[selected];
-    console.log(value);
+
     if (value === true) {
       setPreferences({ ...userPreferences, [selected]: false });
     } else {

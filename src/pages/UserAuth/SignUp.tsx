@@ -29,7 +29,7 @@ export default function SignUp() {
     password: "",
   });
   const currentTheme = localStorage.getItem("theme");
-  console.log(currentTheme);
+
   function handleChange(changed: React.ChangeEvent<HTMLInputElement>) {
     setSignInfo({ ...signInfo, [changed.target.name]: changed.target.value });
   }

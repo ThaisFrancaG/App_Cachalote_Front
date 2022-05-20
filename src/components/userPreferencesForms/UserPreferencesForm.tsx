@@ -16,20 +16,23 @@ import * as style from "./style";
 import Opening from "./preferencesOptions/opening";
 import ReadingOptions from "./preferencesOptions/readingOptions";
 import ProfileImage from "./preferencesOptions/avatarProfile";
-export default function UserPreferencesForm() {
+export default function UserPreferencesForm({ userInfo }: any) {
   const { theme } = useTheme();
   const [page, setPage] = React.useState(1);
   const [userPreferences, setPreferences] = useState({
     nickname: "",
+    avatar: "",
     books: false,
     mangas: false,
     novels: false,
     comics: false,
   });
+  const [preview, setPreview] = useState("");
+
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-  console.log(userPreferences);
+
   return (
     <ThemeProvider theme={theme}>
       <style.FormBack>
@@ -42,7 +45,13 @@ export default function UserPreferencesForm() {
               setPreferences={setPreferences}
             />
           ) : page === 3 ? (
-            <ProfileImage />
+            <ProfileImage
+              userInfo={userInfo}
+              userPreferences={userPreferences}
+              setPreferences={setPreferences}
+              preview={preview}
+              setPreview={setPreview}
+            />
           ) : page === 4 ? (
             <>Pagina4</>
           ) : (

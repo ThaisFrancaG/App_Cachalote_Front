@@ -6,11 +6,11 @@ import { ThemeProvider } from "styled-components";
 import * as api from "../../services/api";
 import { RiErrorWarningFill } from "react-icons/ri";
 import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 import { useTheme } from "../../context/theme";
 import { AxiosError } from "axios";
 import { WaveSpinner } from "react-spinners-kit";
 import useAlert from "../../context/alert";
-
 import "react-toastify/dist/ReactToastify.css";
 import UserPreferencesForm from "../../components/userPreferencesForms/UserPreferencesForm";
 
@@ -23,6 +23,7 @@ export default function MainPage() {
   const [submitSuccess, setSubmitSuccess] = React.useState(false);
   const [submitError, setSubmitError] = React.useState(false);
   const [userForm, setUserForm] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
   const { setMessage } = useAlert();
 
   useEffect(() => {
@@ -31,14 +32,33 @@ export default function MainPage() {
       setMessage({ type: "error", text: "Por favor, faça login!" });
       navigate("/sign-in");
     }
+    const fetchData = async (session: string) => {
+      const response = await getUserInfo(session);
+    };
+    fetchData(session as string);
     const userPreferences = localStorage.getItem("cachalote-user");
     if (!userPreferences || userPreferences === "false") {
       setUserForm(true);
     }
   }, []);
+
+  async function getUserInfo(session: string) {
+    try {
+      const response = await api.getUserData(session);
+      setUserInfo(response);
+    } catch (error: Error | AxiosError | any) {
+      if (error.response.status === 444) {
+        localStorage.removeItem("cachalote-user");
+        navigate("/sign-in");
+      }
+      console.log(error);
+    }
+  }
+
   return (
     <ThemeProvider theme={theme}>
-      {userForm ? <UserPreferencesForm /> : <></>}
+      <Header userInfo={userInfo} />
+      {userForm ? <UserPreferencesForm userInfo={userInfo} /> : <></>}
       CACHALOTE CACHALOTE
       <Footer />
     </ThemeProvider>
