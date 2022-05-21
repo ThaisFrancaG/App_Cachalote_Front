@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
+import SwitchUnstyled, {
+  switchUnstyledClasses,
+} from "@mui/base/SwitchUnstyled";
 export const HorizontalDivisor = styled.div(({ theme }) => ``);
 
 export const FormContainer = styled.main(
@@ -73,6 +75,7 @@ export const AvatarForm = styled.form<any>`
     height: 8vh;
     border: none;
     border-radius: 5%;
+    color: ${(props) => (props.status ? "#fff" : props.theme.back)};
     :hover {
       cursor: pointer;
       background-color: ${(props) =>
@@ -179,7 +182,7 @@ column-gap:20px;
 width:80vw;
 height:60%;
 padding-bottom:30px;
-background-color:purple;
+
 `
 );
 
@@ -232,3 +235,95 @@ export const ReadingsSelector = styled.div<any>`
     }
   }
 `;
+
+const blue = {
+  700: "#0059B2",
+};
+
+const grey = {
+  400: "#BFC7CF",
+  800: "#2F3A45",
+};
+
+export const SwitchContainer = styled.div(
+  ({ theme }) => `
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 10px;
+  color:${theme.primary};
+  
+  padding-left: 10px;
+  padding-right: 20px;
+  box-sizing: border-box;
+  
+`
+);
+export const Root = styled("span")(
+  ({ theme }) => `
+ 
+  font-size: 0;
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 20px;
+  margin: 10px;
+  cursor: pointer;
+
+  &.${switchUnstyledClasses.disabled} {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  & .${switchUnstyledClasses.track} {
+    background: ${theme.primary};
+    border-radius: 10px;
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+
+  & .${switchUnstyledClasses.thumb} {
+    display: block;
+    width: 14px;
+    height: 14px;
+    top: 3px;
+    left: 3px;
+    border-radius: 16px;
+    background-color: ${theme.accent};
+    position: relative;
+    transition: all 400ms ease;
+  }
+
+  &.${switchUnstyledClasses.focusVisible} .${switchUnstyledClasses.thumb} {
+    background-color: black;
+    box-shadow: 0 0 1px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  &.${switchUnstyledClasses.checked} {
+    .${switchUnstyledClasses.thumb} {
+      left: 80px;
+      top: 3px;
+      background-color:#fff;
+    }
+
+    .${switchUnstyledClasses.track} {
+      background: ${theme.accent}};
+    }
+  }
+
+  & .${switchUnstyledClasses.input} {
+    cursor: inherit;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: 1;
+    margin: 0;
+  }
+  `
+);

@@ -16,6 +16,7 @@ import * as style from "./style";
 import Opening from "./preferencesOptions/opening";
 import ReadingOptions from "./preferencesOptions/readingOptions";
 import ProfileImage from "./preferencesOptions/avatarProfile";
+import NotificationsPreferences from "./preferencesOptions/notifications";
 export default function UserPreferencesForm({ userInfo }: any) {
   const { theme } = useTheme();
   const [page, setPage] = React.useState(1);
@@ -26,6 +27,10 @@ export default function UserPreferencesForm({ userInfo }: any) {
     mangas: false,
     novels: false,
     comics: false,
+    showPublicNotifications: false,
+    showFriendsNotifications: false,
+    getPublicNotifications: false,
+    getFriendsNotifications: false,
   });
   const [preview, setPreview] = useState("");
 
@@ -56,7 +61,10 @@ export default function UserPreferencesForm({ userInfo }: any) {
               setPreview={setPreview}
             />
           ) : page === 4 ? (
-            <>Pagina4</>
+            <NotificationsPreferences
+              userPreferences={userPreferences}
+              setPreferences={setPreferences}
+            />
           ) : (
             <>Pagina5</>
           )}

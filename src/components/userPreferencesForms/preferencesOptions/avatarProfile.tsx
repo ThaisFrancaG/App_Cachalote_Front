@@ -33,7 +33,6 @@ export default function ProfileImage(props: any) {
         "Arquivo muito grande!\n Por favor, escolha uma imagem menor"
       );
     } else {
-      setPreview(URL.createObjectURL(file));
       setErrorMessage("");
       setFileError(false);
       setAvatar(file);
@@ -54,6 +53,8 @@ export default function ProfileImage(props: any) {
         .from("testing")
         .upload(filePath, file);
       setFileError(false);
+      setPreview(URL.createObjectURL(file));
+
       setSucessMessage("Imagem Enviada com Sucesso!");
       //se o upload der certo, vou salvar o nome da imagem e associar ao usuário
       setPreferences({ ...userPreferences, [avatar]: filePath });
@@ -67,8 +68,6 @@ export default function ProfileImage(props: any) {
       console.log(error.message);
     }
   };
-
-  console.log(selectedPic);
 
   return (
     <ThemeProvider theme={theme}>
