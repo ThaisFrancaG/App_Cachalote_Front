@@ -16,18 +16,17 @@ import { WaveSpinner } from "react-spinners-kit";
 import useAuth from "../../../context/auth";
 import * as style from "../style";
 import * as formStyle from "../../../pages/UserAuth/style";
-export default function Opening(props: any) {
+export default function Ending(props: any) {
   const { theme } = useTheme();
-  const { signIn } = useAuth();
+  const { token } = useAuth();
   const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
   const { userPreferences, setPreferences } = props;
   const [sucessMessage, setMessage] = useState("");
-  const currentTheme = localStorage.getItem("theme");
-
-  function handleChange(changed: React.ChangeEvent<HTMLInputElement>) {
-    setPreferences({ ...userPreferences, ["nickname"]: changed.target.value });
-  }
+  const [loading, setLoading] = React.useState(false);
+  const [successMessage, setSuccessMessage] = React.useState("");
+  const [submitSuccess, setSubmitSuccess] = React.useState(false);
+  const [submitError, setSubmitError] = React.useState(false);
 
   async function handleSubmission(
     e:
@@ -35,51 +34,54 @@ export default function Opening(props: any) {
       | React.KeyboardEvent<HTMLButtonElement>
   ) {
     e.preventDefault();
-    setMessage(
-      `É um prazer te ter aqui, ${userPreferences.nickname}!
-      \n
-      Use o navegador abaixo para continuar`
-    );
+    setLoading(true);
+    setSubmitError(false);
+    try {
+      await api.sendPreferences(token as string, userPreferences);
+      setSubmitSuccess(true);
+    } catch (error: Error | AxiosError | any) {
+      console.log(error.message);
+      setSubmitError(true);
+      setSubmitSuccess(false);
+      setLoading(false);
+    }
   }
+
+  const currentTheme = localStorage.getItem("theme");
+
   return (
     <ThemeProvider theme={theme}>
       <style.PageDescriptor>
-        <span>Parece que esse é seu primeiro login! Bem-vindo(a)</span>
+        <style.Logo>
+          <img
+            src={currentTheme === "secondTheme" ? logoSecond : logoFirst}
+            alt="logo"
+          />
+        </style.Logo>
         <span>
-          Antes de prosseguir, gostariamos de algumas informações suas
+          Você chegou no fim do formulário! Se quiser, volte as páginas para
+          conferir suas informações. Se estiver tudo ok, pode clicar no botâo
+          abaixo para as enviar!
         </span>
         <span>
-          Mas, se preferir, pode pular essa etapa, e nós te daremos o padrão
+          Lembrando que essas escolhas não são definitivas, e você terá chances
+          de as mudar - ou atualizar - no futuro!
         </span>
-        <span>Você pode personalizar suas preferências depois!</span>
-      </style.PageDescriptor>
-
-      <style.FormNickName>
-        <span>Escolha seu Nome!</span>
-        <input
-          name="nickName"
-          placeholder="Apelido/Nome de Usuário"
-          type="text"
-          value={userPreferences.nickname}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-        <style.Button
+        <style.FormButton
+          disabled={loading}
           onKeyPress={(e) => handleSubmission(e)}
           onClick={(e) => handleSubmission(e)}
         >
-          salvar
-        </style.Button>
-      </style.FormNickName>
-      <style.PageDescriptor>
-        {sucessMessage.length === 0 ? <span>É um prazer te ter aqui!</span> : <span>{sucessMessage}</span>}
+          {loading ? (
+            <>
+              <WaveSpinner /> <WaveSpinner />
+              <WaveSpinner />{" "}
+            </>
+          ) : (
+            <span>enviar</span>
+          )}
+        </style.FormButton>
       </style.PageDescriptor>
-      <style.Logo>
-        <img
-          src={currentTheme === "secondTheme" ? logoSecond : logoFirst}
-          alt="logo"
-        />
-      </style.Logo>
     </ThemeProvider>
   );
 }

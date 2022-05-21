@@ -33,3 +33,19 @@ export async function getUserData(token: string) {
   const userData = await baseAPI.get("/user-info", config);
   return userData.data;
 }
+interface Preferences {
+  nickname: string;
+  avatar: string;
+  books: boolean;
+  mangas: boolean;
+  novels: boolean;
+  comics: boolean;
+  showPublicNotifications: boolean;
+  showFriendsNotifications: boolean;
+  getPublicNotifications: boolean;
+  getFriendsNotifications: boolean;
+}
+export async function sendPreferences(token: string, preferences: Preferences) {
+  console.log(token);
+  console.log(preferences);
+}

@@ -4,7 +4,15 @@ import SwitchUnstyled, {
   switchUnstyledClasses,
 } from "@mui/base/SwitchUnstyled";
 export const HorizontalDivisor = styled.div(({ theme }) => ``);
-
+export const Logo = styled.figure`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30vw;
+  height: auto;
+  padding-left: 15%;
+  margin-top: 5vh;
+`;
 export const FormContainer = styled.main(
   ({ theme }) => `
   display:flex;
@@ -106,10 +114,15 @@ export const FormTitle = styled.span(
 export const FormProgress = styled.nav(
   ({ theme }) => `
 position:absolute;
-bottom:0;
+bottom:10px;
+padding-bottom:3px;
 display:flex;
+align-items:center;
+justify-content:center;
+height:auto;
 color:${theme.primary};
-background-color:red;
+border-radius:10px;
+background-color:${theme.inputTransparent};
 `
 );
 
@@ -327,3 +340,19 @@ export const Root = styled("span")(
   }
   `
 );
+
+export const FormButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60vw;
+  height: 8vh;
+  background-color: ${(props) => props.theme.accent};
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10vh;
+     :hover {
+      cursor: pointer;
+      background-color: ${(props) => props.theme.accentTransparent}
+`;

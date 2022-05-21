@@ -17,6 +17,7 @@ import Opening from "./preferencesOptions/opening";
 import ReadingOptions from "./preferencesOptions/readingOptions";
 import ProfileImage from "./preferencesOptions/avatarProfile";
 import NotificationsPreferences from "./preferencesOptions/notifications";
+import Ending from "./preferencesOptions/ending";
 export default function UserPreferencesForm({ userInfo }: any) {
   const { theme } = useTheme();
   const [page, setPage] = React.useState(1);
@@ -66,7 +67,7 @@ export default function UserPreferencesForm({ userInfo }: any) {
               setPreferences={setPreferences}
             />
           ) : (
-            <>Pagina5</>
+            <Ending userPreferences={userPreferences} />
           )}
           <style.FormProgress>
             <Stack spacing={2}>
