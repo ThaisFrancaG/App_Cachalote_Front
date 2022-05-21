@@ -4,7 +4,6 @@
 import { useEffect, useState } from "react";
 import themes from "../style/themes";
 import styled from "styled-components";
-import { GiWhaleTail } from "react-icons/gi";
 import { useTheme } from "../context/theme";
 import useAlert from "../context/alert";
 import { useNavigate } from "react-router";
@@ -22,25 +21,9 @@ function Header({ userInfo }: any) {
   const fileName = userInfo.avatar;
   const avatarUrl = `${storageBucket}${storageFolder}${fileName}`;
 
-  // console.log(avatarUrl);
-  // const downloadImage = async (avatarUrl: any) => {
-
-  //   try {
-  //     const { data, error } = await supabase.storage
-  //       .from("testing")
-  //       .download(avatarUrl);
-  //     if (error) {
-  //       throw error;
-  //     }
-  //     const url = URL.createObjectURL(avatarUrl);
-
-  //   } catch (error: any) {
-  //     console.log("Error downloading image: ", error.message);
-  //   }
-  // };
   return (
     <Main>
-      <span>Se quiser, clique para mudar as cores!</span>
+      <span>Em Construção!</span>
     </Main>
   );
 }

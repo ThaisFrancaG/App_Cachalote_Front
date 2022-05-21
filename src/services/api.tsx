@@ -46,6 +46,6 @@ interface Preferences {
   getFriendsNotifications: boolean;
 }
 export async function sendPreferences(token: string, preferences: Preferences) {
-  console.log(token);
-  console.log(preferences);
+  const config = getConfig(token);
+  await baseAPI.post(`/user-preferences`, preferences, config);
 }

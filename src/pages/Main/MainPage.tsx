@@ -36,18 +36,18 @@ export default function MainPage() {
       const response = await getUserInfo(session);
     };
     fetchData(session as string);
-    const userPreferences = localStorage.getItem("cachalote-user");
-    if (!userPreferences || userPreferences === "false") {
-      setUserForm(true);
-    }
   }, []);
 
   async function getUserInfo(session: string) {
     try {
       const response = await api.getUserData(session);
+      if (response.nickName.length === 0 && response.avatar.length === 0) {
+        setUserForm(true);
+      }
+
       setUserInfo(response);
     } catch (error: Error | AxiosError | any) {
-      if (error.response.status === 444) {
+      if (error.response.status === 444 || error.response.status === 401) {
         localStorage.removeItem("cachalote-user");
         navigate("/sign-in");
       }

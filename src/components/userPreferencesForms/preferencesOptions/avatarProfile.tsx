@@ -8,11 +8,11 @@ import logoGrey from "../../../assets/visualIdentity/logoGrey.svg";
 import * as style from "../style";
 export default function ProfileImage(props: any) {
   const { theme } = useTheme();
-  const { userInfo, setUserInfo } = props;
+  const { userInfo } = props;
   const { userPreferences, setPreferences } = props;
   const { preview, setPreview } = props;
   const [selectedFile, setSelectedFile] = useState();
-  const [isFilePicked, setIsFilePicked] = useState(false);
+
   const [fileError, setFileError] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [sucessMessage, setSucessMessage] = useState("");
@@ -57,7 +57,7 @@ export default function ProfileImage(props: any) {
 
       setSucessMessage("Imagem Enviada com Sucesso!");
       //se o upload der certo, vou salvar o nome da imagem e associar ao usuário
-      setPreferences({ ...userPreferences, [avatar]: filePath });
+      setPreferences({ ...userPreferences, ["avatar"]: filePath });
       if (uploadError) {
         setErrorMessage(
           "Houve um erro durante o Upload,\n tente novamente mais tarde!"
