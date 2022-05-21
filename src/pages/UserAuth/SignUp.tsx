@@ -11,6 +11,9 @@ import { useTheme } from "../../context/theme";
 import CheckForm from "./CheckFormUtil";
 import { AxiosError } from "axios";
 import { WaveSpinner } from "react-spinners-kit";
+import logoFirst from "../../assets/visualIdentity/logoFirst.svg";
+import logoSecond from "../../assets/visualIdentity/logoSecond.svg";
+
 export default function SignUp() {
   const { theme } = useTheme();
   const navigate = useNavigate();
@@ -25,6 +28,7 @@ export default function SignUp() {
     checkEmail: "",
     password: "",
   });
+  const currentTheme = localStorage.getItem("theme");
 
   function handleChange(changed: React.ChangeEvent<HTMLInputElement>) {
     setSignInfo({ ...signInfo, [changed.target.name]: changed.target.value });
@@ -61,7 +65,12 @@ export default function SignUp() {
   return (
     <ThemeProvider theme={theme}>
       <style.MainAuth>
-        <style.Banner>oi</style.Banner>
+        <style.Banner>
+          <img
+            src={currentTheme === "secondTheme" ? logoSecond : logoFirst}
+            alt="logo"
+          />
+        </style.Banner>
 
         <style.Success>{successMessage}</style.Success>
 

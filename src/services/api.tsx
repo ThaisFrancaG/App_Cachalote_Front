@@ -28,3 +28,24 @@ export async function signIn(data: UserData) {
   const token = response.data;
   return token;
 }
+export async function getUserData(token: string) {
+  const config = getConfig(token);
+  const userData = await baseAPI.get("/user-info", config);
+  return userData.data;
+}
+interface Preferences {
+  nickname: string;
+  avatar: string;
+  books: boolean;
+  mangas: boolean;
+  novels: boolean;
+  comics: boolean;
+  showPublicNotifications: boolean;
+  showFriendsNotifications: boolean;
+  getPublicNotifications: boolean;
+  getFriendsNotifications: boolean;
+}
+export async function sendPreferences(token: string, preferences: Preferences) {
+  const config = getConfig(token);
+  await baseAPI.post(`/user-preferences`, preferences, config);
+}

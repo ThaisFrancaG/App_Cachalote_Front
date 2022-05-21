@@ -48,8 +48,8 @@ export default function SignIn() {
 
     try {
       const token = await api.signIn(signInfo);
-
       signIn(token);
+
       navigate("/");
     } catch (error: Error | AxiosError | any) {
       if (error.message === "Netword Error") {

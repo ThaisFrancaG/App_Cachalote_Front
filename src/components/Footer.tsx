@@ -45,7 +45,7 @@ export default Footer;
 const Main = styled.footer(
   ({ theme }) => `
 position:fixed;
-z-index:100;
+z-index:900;
 bottom:0;
 background-color:${theme.accent};
 width:100vw;
