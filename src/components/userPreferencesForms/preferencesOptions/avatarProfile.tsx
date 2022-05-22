@@ -6,14 +6,15 @@ import { useTheme } from "../../../context/theme";
 import { supabase } from "../../../supabaseClient";
 import logoGrey from "../../../assets/visualIdentity/logoGrey.svg";
 import * as style from "../style";
+import { WaveSpinner } from "react-spinners-kit";
+
 export default function ProfileImage(props: any) {
   const { theme } = useTheme();
   const { userInfo } = props;
   const { userPreferences, setPreferences } = props;
   const { preview, setPreview } = props;
-  const [selectedFile, setSelectedFile] = useState();
-
   const [fileError, setFileError] = useState(true);
+  const [submitError, setSubmitError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [sucessMessage, setSucessMessage] = useState("");
   const [avatar, setAvatar] = useState(null);
@@ -24,7 +25,7 @@ export default function ProfileImage(props: any) {
     const file = event.target.files[0];
     const fileExt = file.name.split(".").pop();
 
-    if (fileExt !== "png" && fileExt !== "jpeg") {
+    if (fileExt !== "png" && fileExt !== "jpeg" && fileExt !== "jpg") {
       setErrorMessage(
         "Formato inválido! \n Por favor escolha uma imagem \n de formato .png ou.jpeg"
       );
@@ -33,6 +34,8 @@ export default function ProfileImage(props: any) {
         "Arquivo muito grande!\n Por favor, escolha uma imagem menor"
       );
     } else {
+      setPreview(URL.createObjectURL(file));
+
       setErrorMessage("");
       setFileError(false);
       setAvatar(file);
@@ -50,23 +53,33 @@ export default function ProfileImage(props: any) {
       const file = avatar;
       const filePath = `${Math.random()}.${userInfo.id}`;
       const { error: uploadError } = await supabase.storage
-        .from("testing")
+        .from("user-profles")
         .upload(filePath, file);
       setFileError(false);
       setPreview(URL.createObjectURL(file));
-
       setSucessMessage("Imagem Enviada com Sucesso!");
-      //se o upload der certo, vou salvar o nome da imagem e associar ao usuário
       setPreferences({ ...userPreferences, ["avatar"]: filePath });
+
       if (uploadError) {
+        setPreferences({ ...userPreferences, ["avatar"]: "" });
+
+        setSubmitError(true);
         setErrorMessage(
-          "Houve um erro durante o Upload,\n tente novamente mais tarde!"
+          "Houve um erro durante o Upload,\n tente novamente mais tarde ou pule essa etapa!"
         );
-        throw uploadError;
+        setUploading(false);
+        return;
       }
     } catch (error: any) {
-      console.log(error.message);
+      setPreferences({ ...userPreferences, ["avatar"]: "" });
+
+      setSubmitError(true);
+      setErrorMessage(
+        "Algo deu errado do nosso lado!\n Tente novamente mais tarde, ou pule essa etapa"
+      );
     }
+
+    setUploading(false);
   };
 
   return (
@@ -78,20 +91,14 @@ export default function ProfileImage(props: any) {
           onSubmit={uploadAvatar}
         >
           <label htmlFor="input-file">
-            <input
-              id="input-file"
-              type="file"
-              value={selectedFile}
-              onChange={checkAvatar}
-              hidden
-            />
+            <input id="input-file" type="file" onChange={checkAvatar} hidden />
             <style.AvatarSelector>
               {preview.length === 0 ? (
                 <span>Selecione uma imagem!</span>
               ) : selectedPic.length !== 0 ? (
                 <span>{selectedPic}</span>
               ) : (
-                <span>Imagem Enviada! Confira Preview</span>
+                <span>Imagem Selecionada! Confira Preview</span>
               )}
               {preview.length === 0 ? (
                 <img src={logoGrey} />
@@ -100,10 +107,27 @@ export default function ProfileImage(props: any) {
               )}
             </style.AvatarSelector>
           </label>
-          <button type="submit" disabled={fileError}>
-            Enviar Foto
-          </button>
-          {fileError ? <>{errorMessage}</> : <>{sucessMessage}</>}
+          <div
+            onClick={() =>
+              fileError ? setErrorMessage("Escolha uma foto para enviar!") : ""
+            }
+          >
+            <button type="submit" disabled={fileError}>
+              {uploading ? (
+                <>
+                  <WaveSpinner /> <WaveSpinner />
+                  <WaveSpinner />{" "}
+                </>
+              ) : (
+                <span>Enviar</span>
+              )}
+            </button>
+          </div>
+          {fileError || submitError ? (
+            <>{errorMessage}</>
+          ) : (
+            <>{sucessMessage}</>
+          )}
         </style.AvatarForm>
       </style.ReadingsContainer>
       <style.PageDescriptor>

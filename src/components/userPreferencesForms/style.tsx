@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import SwitchUnstyled, {
-  switchUnstyledClasses,
-} from "@mui/base/SwitchUnstyled";
+import { switchUnstyledClasses } from "@mui/base/SwitchUnstyled";
 export const HorizontalDivisor = styled.div(({ theme }) => ``);
 export const Logo = styled.figure`
   display: flex;
@@ -78,6 +76,9 @@ export const AvatarForm = styled.form<any>`
   }
 
   button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-left: 70%;
     width: 20vw;
     height: 8vh;
@@ -248,15 +249,6 @@ export const ReadingsSelector = styled.div<any>`
     }
   }
 `;
-
-const blue = {
-  700: "#0059B2",
-};
-
-const grey = {
-  400: "#BFC7CF",
-  800: "#2F3A45",
-};
 
 export const SwitchContainer = styled.div(
   ({ theme }) => `

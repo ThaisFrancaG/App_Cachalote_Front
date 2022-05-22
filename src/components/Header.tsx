@@ -15,7 +15,6 @@ function Header({ userInfo }: any) {
   const { setMessage } = useAlert();
   const navigate = useNavigate();
 
-  //a ideia É SALVAR O NOME DO ARQUIVO DE IMAGEM NO BANCO DE DADOS,M E RECUPERAR ESSE NOME PRO DISPLAY
   const storageFolder = "/storage/v1/object/public/testing/";
   const storageBucket = process.env.REACT_APP_SUPABASE_URL;
   const fileName = userInfo.avatar;

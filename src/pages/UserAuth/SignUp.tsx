@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { ThemeProvider } from "styled-components";
 import * as style from "./style";
@@ -55,7 +56,6 @@ export default function SignUp() {
       setSubmitSuccess(true);
       navigate("/sign-in");
     } catch (error: Error | AxiosError | any) {
-      console.log(error.message);
       setAlertMessage(error.response.data);
       setSubmitError(true);
       setSubmitSuccess(false);
