@@ -1,15 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { ThemeProvider } from "styled-components";
 import * as api from "../../services/api";
-import { RiErrorWarningFill } from "react-icons/ri";
+
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useTheme } from "../../context/theme";
 import { AxiosError } from "axios";
-import { WaveSpinner } from "react-spinners-kit";
 import useAlert from "../../context/alert";
 import "react-toastify/dist/ReactToastify.css";
 import UserPreferencesForm from "../../components/userPreferencesForms/UserPreferencesForm";
@@ -49,16 +49,24 @@ export default function MainPage() {
     } catch (error: Error | AxiosError | any) {
       if (error.response.status === 444 || error.response.status === 401) {
         localStorage.removeItem("cachalote-user");
+        setMessage({ type: "error", text: "Por favor, faça login!" });
         navigate("/sign-in");
       }
-      console.log(error);
+      setMessage({
+        type: "error",
+        text: "Algo deu errado! Tente novamente mais tarde",
+      });
     }
   }
 
   return (
     <ThemeProvider theme={theme}>
       <Header userInfo={userInfo} />
-      {userForm ? <UserPreferencesForm userInfo={userInfo} /> : <></>}
+      {userForm ? (
+        <UserPreferencesForm userInfo={userInfo} setUserForm={setUserForm} />
+      ) : (
+        <></>
+      )}
       CACHALOTE CACHALOTE
       <Footer />
     </ThemeProvider>

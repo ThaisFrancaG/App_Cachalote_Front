@@ -22,7 +22,7 @@ position:fixed;
 display:flex;
 align-items:center;
 justify-content:end;
-padding-right:10px;
+padding-right:15px;
 left:-20vw;
 min-width:50vw;
 height: 200vh;
@@ -30,6 +30,7 @@ background-color: ${theme.secondary};
 // border-top-right-radius:50%;
 // border-bottom-right-radius:70%;
 border-radius:50%;
+box-sizing:border-box;
 
 img{
   heigth:50%;
@@ -41,13 +42,22 @@ img{
 export const BannerLogin = styled.aside(
   ({ theme }) => `
 position:fixed;
+display:flex;
+align-items:center;
+justify-content:start;
+padding-left:15px;
 right:-20vw;
 min-width:50vw;
 height: 200vh;
+box-sizing:border-box;
 background-color: ${theme.secondary};
 // border-top-right-radius:50%;
 // border-bottom-right-radius:70%;
 border-radius:50%;
+img{
+  heigth:50%;
+  width:50%;
+}
 
 `
 );

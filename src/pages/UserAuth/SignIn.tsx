@@ -11,6 +11,8 @@ import { useTheme } from "../../context/theme";
 import CheckForm from "./CheckFormUtil";
 import { AxiosError } from "axios";
 import { WaveSpinner } from "react-spinners-kit";
+import logoFirst from "../../assets/visualIdentity/logoFirst.svg";
+import logoSecond from "../../assets/visualIdentity/logoSecond.svg";
 import useAuth from "../../context/auth";
 
 export default function SignIn() {
@@ -19,6 +21,7 @@ export default function SignIn() {
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState("");
+  const currentTheme = localStorage.getItem("theme");
 
   const [submitError, setSubmitError] = React.useState(false);
   const [signInfo, setSignInfo] = useState({
@@ -109,7 +112,12 @@ export default function SignIn() {
             Ainda não tem conta? Faça cadastro!
           </style.Navigation>
         </style.FormLogin>
-        <style.BannerLogin>oi</style.BannerLogin>
+        <style.BannerLogin>
+          <img
+            src={currentTheme === "secondTheme" ? logoSecond : logoFirst}
+            alt="logo"
+          />
+        </style.BannerLogin>
 
         <Footer />
       </style.MainAuth>
